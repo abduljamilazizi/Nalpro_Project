@@ -1,0 +1,52 @@
+BERT MLM Adaptation Then Classification Results
+===============================================
+
+Base Model: bert-base-uncased
+MLM subset size: 2000
+MLM epochs: 1
+Classification max length: 64
+Classification batch size: 8
+Classification learning rate: 2e-05
+Classification epochs: 2
+
+Validation Metrics:
+eval_loss: 1.0397374629974365
+eval_accuracy: 0.68935041979673
+eval_macro_f1: 0.6670902855447428
+eval_weighted_f1: 0.6816781489250923
+eval_runtime: 209.9121
+eval_samples_per_second: 10.781
+eval_steps_per_second: 1.348
+epoch: 2.0
+
+Test Accuracy: 0.6600
+Test Macro F1: 0.6390
+Test Weighted F1: 0.6545
+
+Classification Report:
+                          precision    recall  f1-score   support
+
+             alt.atheism       0.38      0.45      0.41       319
+           comp.graphics       0.64      0.65      0.64       389
+ comp.os.ms-windows.misc       0.62      0.64      0.63       394
+comp.sys.ibm.pc.hardware       0.60      0.61      0.61       392
+   comp.sys.mac.hardware       0.70      0.66      0.68       385
+          comp.windows.x       0.81      0.70      0.75       395
+            misc.forsale       0.78      0.84      0.81       390
+               rec.autos       0.52      0.74      0.61       396
+         rec.motorcycles       0.72      0.62      0.66       398
+      rec.sport.baseball       0.89      0.77      0.83       397
+        rec.sport.hockey       0.84      0.86      0.85       399
+               sci.crypt       0.68      0.62      0.65       396
+         sci.electronics       0.59      0.58      0.58       393
+                 sci.med       0.81      0.81      0.81       396
+               sci.space       0.71      0.71      0.71       394
+  soc.religion.christian       0.62      0.77      0.69       398
+      talk.politics.guns       0.50      0.64      0.57       364
+   talk.politics.mideast       0.81      0.73      0.76       376
+      talk.politics.misc       0.46      0.46      0.46       310
+      talk.religion.misc       0.21      0.04      0.06       251
+
+                accuracy                           0.66      7532
+               macro avg       0.65      0.64      0.64      7532
+            weighted avg       0.66      0.66      0.65      7532
