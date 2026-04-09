@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+*.log
+
+results/bert_classifier_output/
+results/bert_mlm_output/
+results/bert_mlm_adapted/
+results/bert_mlm_then_classifier_output/

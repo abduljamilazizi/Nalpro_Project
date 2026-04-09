@@ -1,0 +1,51 @@
+BERT-base Classification Results
+===============================
+
+Model: bert-base-uncased
+Max Length: 64
+Batch Size: 8
+Learning Rate: 2e-05
+Epochs: 2
+Weight Decay: 0.01
+
+Validation Metrics:
+eval_loss: 1.053074598312378
+eval_accuracy: 0.6880247459125055
+eval_macro_f1: 0.6664786600864412
+eval_weighted_f1: 0.6812098289058002
+eval_runtime: 309.6517
+eval_samples_per_second: 7.308
+eval_steps_per_second: 0.914
+epoch: 2.0
+
+Test Accuracy: 0.6547
+Test Macro F1: 0.6327
+Test Weighted F1: 0.6481
+
+Classification Report:
+                          precision    recall  f1-score   support
+
+             alt.atheism       0.37      0.40      0.38       319
+           comp.graphics       0.67      0.65      0.66       389
+ comp.os.ms-windows.misc       0.60      0.64      0.62       394
+comp.sys.ibm.pc.hardware       0.57      0.60      0.59       392
+   comp.sys.mac.hardware       0.69      0.64      0.66       385
+          comp.windows.x       0.79      0.71      0.74       395
+            misc.forsale       0.77      0.82      0.79       390
+               rec.autos       0.51      0.76      0.61       396
+         rec.motorcycles       0.71      0.61      0.66       398
+      rec.sport.baseball       0.89      0.77      0.82       397
+        rec.sport.hockey       0.86      0.84      0.85       399
+               sci.crypt       0.69      0.61      0.65       396
+         sci.electronics       0.59      0.56      0.58       393
+                 sci.med       0.82      0.81      0.81       396
+               sci.space       0.70      0.72      0.71       394
+  soc.religion.christian       0.60      0.75      0.67       398
+      talk.politics.guns       0.48      0.64      0.55       364
+   talk.politics.mideast       0.77      0.74      0.75       376
+      talk.politics.misc       0.49      0.46      0.48       310
+      talk.religion.misc       0.28      0.03      0.05       251
+
+                accuracy                           0.65      7532
+               macro avg       0.64      0.64      0.63      7532
+            weighted avg       0.65      0.65      0.65      7532

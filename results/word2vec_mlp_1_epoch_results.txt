@@ -1,0 +1,36 @@
+Word2Vec (1 Epoch) + MLP Results
+================================
+
+Device: cpu
+Test Loss: 2.4496
+Test Accuracy: 0.2230
+Test Macro F1: 0.1709
+Test Weighted F1: 0.1772
+
+Classification Report:
+                          precision    recall  f1-score   support
+
+             alt.atheism       0.13      0.06      0.08       319
+           comp.graphics       0.28      0.02      0.03       389
+ comp.os.ms-windows.misc       0.08      0.01      0.01       394
+comp.sys.ibm.pc.hardware       0.26      0.34      0.30       392
+   comp.sys.mac.hardware       0.16      0.28      0.20       385
+          comp.windows.x       0.27      0.44      0.33       395
+            misc.forsale       0.40      0.55      0.46       390
+               rec.autos       0.13      0.11      0.12       396
+         rec.motorcycles       0.21      0.31      0.25       398
+      rec.sport.baseball       0.15      0.03      0.05       397
+        rec.sport.hockey       0.26      0.59      0.36       399
+               sci.crypt       0.16      0.37      0.22       396
+         sci.electronics       0.18      0.06      0.09       393
+                 sci.med       0.17      0.07      0.10       396
+               sci.space       0.19      0.18      0.18       394
+  soc.religion.christian       0.21      0.33      0.26       398
+      talk.politics.guns       0.13      0.01      0.01       364
+   talk.politics.mideast       0.25      0.54      0.34       376
+      talk.politics.misc       0.00      0.00      0.00       310
+      talk.religion.misc       0.00      0.00      0.00       251
+
+                accuracy                           0.22      7532
+               macro avg       0.18      0.21      0.17      7532
+            weighted avg       0.19      0.22      0.18      7532

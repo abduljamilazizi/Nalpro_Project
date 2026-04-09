@@ -1,0 +1,11 @@
+torch
+scikit-learn
+gensim
+matplotlib
+pandas
+numpy
+transformers
+datasets
+accelerate
+tqdm
+sentencepiece
