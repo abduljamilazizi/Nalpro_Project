@@ -224,6 +224,19 @@ Examples:
 - TF-IDF bigram experiment curves
 - BERT and MLM-based result summaries
 
+## Results Summary
+
+| Method | Representation / Setup | Accuracy | Macro F1 | Weighted F1 | Notes |
+|---|---|---:|---:|---:|---|
+| TF-IDF + MLP | TF-IDF unigram features + 2-layer MLP | **0.6620** | **0.6530** | **0.6635** | Strong classical baseline |
+| Word2Vec + MLP (1 epoch) | Mean Word2Vec document vectors + 2-layer MLP | **0.2262** | **0.1749** | **0.1815** | Very weak after short embedding training |
+| Word2Vec + MLP (10 epochs) | Mean Word2Vec document vectors + 2-layer MLP | **0.5068** | **0.4804** | **0.4948** | Clear improvement over 1 epoch |
+| TF-IDF + MLP (bigrams) | TF-IDF unigram + bigram features + 2-layer MLP | **0.6599** | **0.6514** | **0.6616** | Very similar to unigram TF-IDF |
+| BERT-base classifier | `bert-base-uncased`, direct classification fine-tuning | **0.6500** | **0.6300** | **0.6500** | CPU-friendly BERT setup |
+| BERT MLM → classifier | MLM adaptation first, then classification fine-tuning | **0.6600** | **0.6390** | **0.6545** | Small improvement over direct BERT |
+
+This table reflects the completed parts of the project up to Part 3. The Llama-3 zero-shot and few-shot experiments are not yet included.
+
 ## Tools Used
 
 This project uses:
