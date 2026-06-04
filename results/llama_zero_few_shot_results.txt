@@ -1,0 +1,78 @@
+Llama-3 Zero-shot and Few-shot Results
+=====================================
+
+Model: meta-llama/Meta-Llama-3-8B-Instruct
+Test subset size: 50
+Max new tokens: 8
+Few-shot examples per class: 1
+
+Zero-shot Results
+-----------------
+Accuracy: 0.1200
+Macro F1: 0.1042
+Weighted F1: 0.1544
+Invalid predictions: 43
+
+Zero-shot Classification Report:
+                          precision    recall  f1-score   support
+
+             alt.atheism       0.02      1.00      0.05         1
+           comp.graphics       0.00      0.00      0.00         1
+ comp.os.ms-windows.misc       0.00      0.00      0.00         1
+comp.sys.ibm.pc.hardware       1.00      0.17      0.29         6
+   comp.sys.mac.hardware       1.00      0.50      0.67         2
+          comp.windows.x       0.00      0.00      0.00         1
+            misc.forsale       0.00      0.00      0.00         2
+               rec.autos       0.00      0.00      0.00         3
+         rec.motorcycles       0.00      0.00      0.00         0
+      rec.sport.baseball       0.00      0.00      0.00         2
+        rec.sport.hockey       0.00      0.00      0.00         5
+               sci.crypt       1.00      0.25      0.40         4
+         sci.electronics       0.00      0.00      0.00         2
+                 sci.med       1.00      0.25      0.40         4
+               sci.space       0.00      0.00      0.00         0
+  soc.religion.christian       0.50      0.20      0.29         5
+      talk.politics.guns       0.00      0.00      0.00         1
+   talk.politics.mideast       0.00      0.00      0.00         5
+      talk.politics.misc       0.00      0.00      0.00         4
+      talk.religion.misc       0.00      0.00      0.00         1
+
+                accuracy                           0.12        50
+               macro avg       0.23      0.12      0.10        50
+            weighted avg       0.37      0.12      0.15        50
+
+
+Few-shot Results
+----------------
+Accuracy: 0.5000
+Macro F1: 0.3531
+Weighted F1: 0.4762
+Invalid predictions: 1
+
+Few-shot Classification Report:
+                          precision    recall  f1-score   support
+
+             alt.atheism       0.00      0.00      0.00         1
+           comp.graphics       0.33      1.00      0.50         1
+ comp.os.ms-windows.misc       0.00      0.00      0.00         1
+comp.sys.ibm.pc.hardware       0.75      1.00      0.86         6
+   comp.sys.mac.hardware       1.00      1.00      1.00         2
+          comp.windows.x       0.00      0.00      0.00         1
+            misc.forsale       1.00      0.50      0.67         2
+               rec.autos       1.00      0.33      0.50         3
+         rec.motorcycles       0.00      0.00      0.00         0
+      rec.sport.baseball       0.50      0.50      0.50         2
+        rec.sport.hockey       1.00      0.80      0.89         5
+               sci.crypt       0.33      0.25      0.29         4
+         sci.electronics       1.00      0.50      0.67         2
+                 sci.med       0.67      0.50      0.57         4
+               sci.space       0.00      0.00      0.00         0
+  soc.religion.christian       0.45      1.00      0.62         5
+      talk.politics.guns       0.00      0.00      0.00         1
+   talk.politics.mideast       0.00      0.00      0.00         5
+      talk.politics.misc       0.00      0.00      0.00         4
+      talk.religion.misc       0.00      0.00      0.00         1
+
+                accuracy                           0.50        50
+               macro avg       0.40      0.37      0.35        50
+            weighted avg       0.52      0.50      0.48        50
