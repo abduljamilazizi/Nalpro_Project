@@ -1,274 +1,234 @@
 # NALPRO Project: 20 Newsgroups Text Classification
 
-This repository contains my project work for the Natural Language Processing course using the **20 Newsgroups** dataset.
+This repository contains my Natural Language Processing course project on multi-class text classification using the 20 Newsgroups dataset. The project compares feature-based, transformer-based, and prompt-based methods on the same task and includes one bonus experiment with parameter-efficient fine-tuning.
 
-## Project Scope
+## Project Summary
 
-The project is based on text classification using the dataset loaded with:
+The work is organized into four main parts plus one bonus experiment:
 
-```python
-from sklearn.datasets import fetch_20newsgroups
-```
+### Part 1: Simple Neural Network with Classical Text Representations
+This part uses the same MLP classifier with different input representations:
+- Word2Vec + MLP
+- TF-IDF + MLP
+- TF-IDF Bigram + MLP
 
-The completed work in this repository currently includes:
+### Part 2: Direct BERT Fine-Tuning
+This part fine-tunes `bert-base-uncased` directly for 20-class text classification.
 
-1. A simple neural network with two linear layers and a ReLU in between.
-2. Input representations using:
-   - Word2Vec
-   - TF-IDF
-3. A comparison of Word2Vec embeddings after different numbers of training epochs.
-4. An additional experiment using TF-IDF with unigrams and bigrams.
-5. Fine-tuning a BERT-base model for classification.
-6. Fine-tuning BERT with masked language modeling first, then fine-tuning it again for classification.
+### Part 3: BERT MLM Adaptation then Classification
+This part first adapts BERT to the 20 Newsgroups corpus using masked language modeling and then fine-tunes it for classification.
 
-## Current Project Status
+### Part 4: Llama Zero-Shot and Few-Shot Prompting
+This part evaluates an instruction-tuned LLM in:
+- zero-shot classification
+- few-shot classification
 
-The following parts are completed:
+### Bonus: QLoRA Experiment
+This bonus part explores lightweight parameter-efficient fine-tuning under limited GPU resources using a smaller instruct model and QLoRA-style training.
 
-- Part 1: Simple neural network experiments
-- Part 2: BERT-base fine-tuning for classification
-- Part 3: BERT masked language modeling adaptation, then classification fine-tuning
+## Main Findings
 
-The following part is not yet completed in this repository:
-
-- Part 4: Llama-3 zero-shot and few-shot experiments
+- TF-IDF + MLP achieved the best overall result in this project setup.
+- Word2Vec improved significantly when trained for more epochs.
+- MLM adaptation slightly improved BERT over direct fine-tuning.
+- Few-shot prompting performed much better than zero-shot prompting.
+- The bonus QLoRA experiment worked as a proof-of-concept under hardware and memory constraints.
 
 ## Repository Structure
 
 ```text
-nalpro_project/
-│
+Nalpro_Project/
+├── figures/
+├── llama_zeroshot_fewshot_result/
+├── results/
+├── src/
+├── .gitignore
 ├── README.md
 ├── requirements.txt
-├── .gitignore
-├── data/
-├── figures/
-├── reports/
-├── notebooks/
-├── results/
-└── src/
-    ├── config.py
-    ├── data_utils.py
-    ├── preprocess.py
-    ├── train_tfidf_mlp.py
-    ├── train_word2vec_mlp.py
-    ├── extra_experiment.py
-    ├── train_bert_classifier.py
-    ├── train_bert_mlm_then_classifier.py
-    ├── llama_zero_few_shot.py
-    └── evaluate.py
+└── (optional supporting project files)
 ```
+
+## Folder Description
+
+### `figures/`
+Contains important generated plots and visual outputs, especially for Part 1:
+- TF-IDF training curves
+- Word2Vec training curves
+- PCA visualizations
+- TF-IDF bigram experiment curves
+
+### `results/`
+Contains saved results from the experiments, such as:
+- TF-IDF result files
+- Word2Vec result files
+- BERT result files
+- MLM + BERT result files
+- Llama result files
+- bonus experiment result files if saved separately
+
+### `src/`
+Contains the main source code for the project.
+
+Typical files include:
+- `config.py`
+- `data_utils.py`
+- `preprocess.py`
+- `train_tfidf_mlp.py`
+- `train_word2vec_mlp.py`
+- `extra_experiment.py`
+- `train_bert_classifier.py`
+- `train_bert_mlm_then_classifier.py`
+- `llama_zero_few_shot_kaggle.py`
+- `Qlora_experiment.py`
+- `evaluate.py`
 
 ## Dataset
 
-This project uses the **20 Newsgroups** dataset from `scikit-learn`.
+This project uses the `fetch_20newsgroups` dataset from `scikit-learn`.
 
-The dataset is not uploaded to this repository. It is downloaded programmatically when running the scripts.
+The dataset is not stored directly in the repository. It is downloaded automatically when the scripts are run.
 
-## Preprocessing
-
-The dataset is loaded using:
-
-```python
-remove=("headers", "footers", "quotes")
-```
-
-This was used to reduce noise from:
-- email headers
-- signatures and footers
+The dataset is used after removing:
+- headers
+- footers
 - quoted replies
 
-Additional preprocessing includes:
+This helps make the classification task more realistic and reduces label leakage.
+
+## Preprocessing Overview
+
+Preprocessing depends on the experiment type.
+
+### Classical Models
+For Word2Vec and TF-IDF experiments, preprocessing includes:
 - lowercasing
 - removing punctuation
 - removing digits
 - removing extra whitespace
+- tokenization for Word2Vec
 
-For Word2Vec, tokenization is also applied.
+### BERT-Based Models
+For BERT and MLM + BERT experiments, preprocessing is lighter:
+- remove headers, footers, and quotes
+- tokenize with the BERT tokenizer
+- truncate or pad to the required sequence length
 
-## Methods Implemented
+### Llama Prompting
+For zero-shot and few-shot prompting:
+- remove headers, footers, and quotes
+- normalize spaces
+- shorten text for prompt-friendly input
+- format examples carefully for prompting
 
-### 1. TF-IDF + MLP
-A simple neural network was trained using TF-IDF document vectors as input.
+### Bonus QLoRA
+For the bonus experiment:
+- text is formatted as instruction-style classification examples
+- a reduced dataset subset is used
+- evaluation is done under limited compute settings
 
-Script:
-- `src/train_tfidf_mlp.py`
+## Experimental Parts
 
-Outputs:
-- result file in `results/`
-- training and validation plots in `figures/`
+### Part 1: Word2Vec and TF-IDF with MLP
+The same MLP architecture is used across all Part 1 experiments so that the main comparison is between representations rather than classifier design.
 
-### 2. Word2Vec + MLP
-A Word2Vec model was trained on the corpus and document representations were created by averaging word embeddings. These document vectors were used as input to the same neural network.
+Experiments included:
+- Word2Vec with short training
+- Word2Vec with longer training
+- TF-IDF
+- TF-IDF with bigrams
 
-Script:
-- `src/train_word2vec_mlp.py`
+### Part 2: Direct BERT Classification
+A standard BERT classifier is fine-tuned directly on the classification task.
 
-Outputs:
-- result files in `results/`
-- training and validation plots in `figures/`
-- PCA plots comparing embeddings after 1 epoch and 10 epochs
+### Part 3: MLM Adaptation + BERT Classification
+BERT is first adapted using masked language modeling on in-domain text and then fine-tuned for classification.
 
-### 3. Extra Experiment: TF-IDF with Bigrams
-An additional experiment was performed using TF-IDF with unigram and bigram features while keeping the same neural network architecture.
+### Part 4: Zero-Shot and Few-Shot Prompting
+A Llama-based instruction model is evaluated using prompts only, without updating model weights.
 
-Script:
-- `src/extra_experiment.py`
+### Bonus: QLoRA
+A lightweight QLoRA-style experiment is included as bonus work to demonstrate parameter-efficient fine-tuning under resource constraints.
 
-Outputs:
-- result file in `results/`
-- training and validation plots in `figures/`
+## Evaluation Metrics
 
-### 4. BERT-base Fine-tuning
-A `bert-base-uncased` model was fine-tuned on the classification task.
+The project uses:
+- Accuracy
+- Macro F1
+- Weighted F1
 
-Script:
-- `src/train_bert_classifier.py`
+Macro F1 is especially important because it gives equal importance to all classes in the 20-class setting.
 
-Outputs:
-- result file in `results/`
+## Reproducibility
 
-### 5. BERT MLM Adaptation Then Classification
-BERT was first adapted using masked language modeling on a subset of the training corpus, then fine-tuned for classification.
+To improve reproducibility:
+- fixed random seeds are used where possible
+- the same dataset source is used across experiments
+- consistent preprocessing is applied within each experiment type
+- saved result files are included in the repository
 
-Script:
-- `src/train_bert_mlm_then_classifier.py`
+## Requirements
 
-Outputs:
-- result file in `results/`
+Install dependencies with:
 
-## Main Configuration
-
-The main experiment settings are stored in:
-
-- `src/config.py`
-
-This file includes:
-- random seed
-- TF-IDF settings
-- MLP settings
-- Word2Vec settings
-- BERT settings
-
-## How to Run
-
-### 1. Create and activate the virtual environment
-
-On Windows CMD:
-
-```bat
-python -m venv .venv
-.venv\Scripts\activate
-```
-
-### 2. Install dependencies
-
-```bat
+```bash
 pip install -r requirements.txt
 ```
 
-## Run the completed parts
+## How to Run
 
-### Load and inspect the dataset
+Run scripts from the project root.
 
-```bat
-python src\data_utils.py
+Example:
+
+```bash
+python src/preprocess.py
+python src/train_tfidf_mlp.py
+python src/train_word2vec_mlp.py
+python src/extra_experiment.py
+python src/train_bert_classifier.py
+python src/train_bert_mlm_then_classifier.py
+python src/llama_zero_few_shot_kaggle.py
+python src/Qlora_experiment.py
 ```
 
-### Test preprocessing
+Depending on your environment, some scripts may be intended for:
+- local execution
+- Jupyter
+- Kaggle GPU
+- other cloud notebooks
 
-```bat
-python src\preprocess.py
-```
+## Notes on Hardware and Constraints
 
-### Run TF-IDF + MLP
+Some parts of the project, especially Llama-based prompting and the bonus QLoRA experiment, were affected by hardware and memory limitations.
 
-```bat
-python src\train_tfidf_mlp.py
-```
+Because of this:
+- some experiments were run on subsets
+- some experiments used lighter settings
+- the bonus QLoRA part should be interpreted as exploratory work rather than a direct large-scale comparison
 
-### Run Word2Vec + MLP
+## Final Report Coverage
 
-```bat
-python src\train_word2vec_mlp.py
-```
+This repository is intended to reflect the final project submission and covers:
+- Part 1
+- Part 2
+- Part 3
+- Part 4
+- Bonus QLoRA experiment
+- figures
+- result files
+- implementation scripts
 
-### Run the extra experiment
+## Repository Link
 
-```bat
-python src\extra_experiment.py
-```
+GitHub repository:
+[https://github.com/abduljamilazizi/Nalpro_Project](https://github.com/abduljamilazizi/Nalpro_Project)
 
-### Run BERT classification
+## Acknowledgment
 
-```bat
-python src\train_bert_classifier.py
-```
+This project was carried out under the supervision of Professor Dr. Forooz Shahbaz Avarvand.
 
-### Run MLM then classification
+AI tools were used as support for wording, organization, and explanation help. The experiments, implementation, results, and conclusions were reviewed and understood by the author.
 
-```bat
-python src\train_bert_mlm_then_classifier.py
-```
+## Final Note
 
-## Results and Figures
-
-The repository includes:
-- experiment result summaries in the `results/` folder
-- plots and visualizations in the `figures/` folder
-
-Examples:
-- TF-IDF training curves
-- Word2Vec training curves
-- Word2Vec PCA visualization after 1 and 10 epochs
-- TF-IDF bigram experiment curves
-- BERT and MLM-based result summaries
-
-## Results Summary
-
-| Method | Representation / Setup | Accuracy | Macro F1 | Weighted F1 | Notes |
-|---|---|---:|---:|---:|---|
-| TF-IDF + MLP | TF-IDF unigram features + 2-layer MLP | **0.6620** | **0.6530** | **0.6635** | Strong classical baseline |
-| Word2Vec + MLP (1 epoch) | Mean Word2Vec document vectors + 2-layer MLP | **0.2262** | **0.1749** | **0.1815** | Very weak after short embedding training |
-| Word2Vec + MLP (10 epochs) | Mean Word2Vec document vectors + 2-layer MLP | **0.5068** | **0.4804** | **0.4948** | Clear improvement over 1 epoch |
-| TF-IDF + MLP (bigrams) | TF-IDF unigram + bigram features + 2-layer MLP | **0.6599** | **0.6514** | **0.6616** | Very similar to unigram TF-IDF |
-| BERT-base classifier | `bert-base-uncased`, direct classification fine-tuning | **0.6500** | **0.6300** | **0.6500** | CPU-friendly BERT setup |
-| BERT MLM → classifier | MLM adaptation first, then classification fine-tuning | **0.6600** | **0.6390** | **0.6545** | Small improvement over direct BERT |
-
-This table reflects the completed parts of the project up to Part 3. The Llama-3 zero-shot and few-shot experiments are not yet included.
-
-## Tools Used
-
-This project uses:
-- Python
-- PyTorch
-- scikit-learn
-- gensim
-- transformers
-- datasets
-- matplotlib
-- numpy
-- pandas
-
-## AI Usage
-
-AI tools were used for assistance in:
-- code structuring
-- debugging
-- explanation and planning support
-
-All code used in this repository was reviewed and understood before use.
-
-## External Notes
-
-- The dataset itself is not uploaded to the repository.
-- Large model checkpoints are not included in the repository.
-- This repository currently contains the completed work up to Part 3 of the project.
-
-## Final Report
-
-The final scientific report will be placed in the `reports/` folder.
-
-## Author
-
-Abdul Jamil Azizi
+This repository represents the final version of the NALPRO project and includes the required components of the course project together with the bonus experiment.
